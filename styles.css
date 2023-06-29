@@ -95,14 +95,14 @@ main {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10px;
-  width: 100%; /* Add this line */
+  width: 100%; 
 }
 
 .switch {
   position: relative;
   display: inline-block;
-  width: 30px; /* Reduced size */
-  height: 15px; /* Reduced size */
+  width: 30px; 
+  height: 15px; 
 }
 
 .switch input + span {
@@ -114,14 +114,14 @@ main {
   bottom: 0;
   background-color: #ccc;
   transition: .4s;
-  border-radius: 34px; /* Add this line to make the slider rounded */
+  border-radius: 34px; 
 }
 
 .switch input + span:before {
   position: absolute;
   content: "";
-  height: 12px; /* Adjust this value to be slightly less than the height of the .switch */
-  width: 12px; /* Adjust this value to be slightly less than the height of the .switch */
+  height: 12px; 
+  width: 12px; 
   left: 2px;
   bottom: 2px;
   background-color: white;
@@ -129,8 +129,9 @@ main {
 }
 
 .switch input:checked + span:before {
-  transform: translateX(18px); /* Adjust this value as needed */
+  transform: translateX(15px); /* Reduced this value */
 }
+
 
 .slider {
   position: absolute;
