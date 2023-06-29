@@ -116,3 +116,8 @@ main {
   transition: .4s;
   border-radius: 15px; /* Reduced this value */
 }
+
+label[for="scaleSwitch"] {
+  font-size: 10px; /* Adjust this value as needed */
+}
+
