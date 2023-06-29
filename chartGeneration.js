@@ -1,7 +1,7 @@
 let chart; // Add this line at the start of your chartGeneration.js file
 
 import { calculatePressure } from './pressureCalculation.js';
-import { seaLevelPressureInput, altitudeInput } from './htmlElements.js';
+import { seaLevelPressureSlider, altitudeSlider } from './htmlElements.js';
 import { TROPOSPHERE_LAPSE_RATE, STRATOSPHERE_LAPSE_RATE, MESOSPHERE_LAPSE_RATE, xMax } from './constants.js';
 
 export function generatePressureChart(seaLevelPressure, standardTemperature, isLogarithmic) {
