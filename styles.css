@@ -72,10 +72,13 @@ main {
 
 .collapsible {
   cursor: pointer;
-  border: none;
+  border: 1px solid #6593F5; /* Adjust the color as needed */
   outline: none;
   width: 100%;
+  background: linear-gradient(45deg, #B3CCDD, #6593F5, #0F2027); /* Same gradient as the header */
+  color: white; /* Adjust the text color so it's visible against the gradient */
 }
+
 
 .content {
   display: none;
