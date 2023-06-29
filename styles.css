@@ -132,7 +132,6 @@ main {
   transform: translateX(15px); /* Reduced this value */
 }
 
-
 .slider {
   position: absolute;
   cursor: pointer;
