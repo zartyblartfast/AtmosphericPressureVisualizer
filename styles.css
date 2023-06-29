@@ -95,14 +95,16 @@ main {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10px;
+  width: 100%; /* Add this line */
 }
 
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 20px; /* Adjust as needed */
+  height: 10px; /* Adjust as needed */
 }
+
 
 .switch input { 
   opacity: 0;
