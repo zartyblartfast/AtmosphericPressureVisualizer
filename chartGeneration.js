@@ -154,7 +154,8 @@ const drawRectanglesPlugin = {
     const { ctx, scales } = chart;
     const { x, y } = scales;
     
-    const altitude = parseFloat(altitudeInput.value);
+    //const altitude = parseFloat(altitudeInput.value);
+    const altitude = parseFloat(altitudeSlider.noUiSlider.get());
     const xPosition = x.getPixelForValue(altitude);
     const yPosition = y.getPixelForValue(y.min);  // y-axis min value
 
