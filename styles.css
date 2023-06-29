@@ -128,6 +128,10 @@ main {
   transition: .4s;
 }
 
+.switch input:checked + span:before {
+  transform: translateX(24px); /* Adjust this value as needed */
+}
+
 .switch input { 
   opacity: 0;
   width: 0;
