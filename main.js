@@ -48,8 +48,10 @@ function updatePressureOutput() {
 function updateChart() {
   // Parse input values
   let seaLevelPressure = parseFloat(seaLevelPressureSlider.noUiSlider.get());
+  console.log("updateChart - seaLevelPressure: ${seaLevelPressure});
   let standardTemperature = parseFloat(standardTemperatureValue.value);
-
+  console.log("updateChart - standardTemperature: ${standardTemperature});
+              
   // Basic input validation
   if (isNaN(seaLevelPressure) || isNaN(standardTemperature)) {
     return;
