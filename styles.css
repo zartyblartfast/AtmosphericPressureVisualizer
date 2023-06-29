@@ -96,7 +96,7 @@ main {
   justify-content: flex-end;
   margin-bottom: 0px;
   width: 100%;
-  padding-right: 10px; /* Adjust this value as needed */
+  padding-right: 20px; /* Adjust this value as needed */
 }
 
 .switch {
