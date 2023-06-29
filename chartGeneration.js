@@ -4,7 +4,7 @@ import { calculatePressure } from './pressureCalculation.js';
 import { seaLevelPressureInput, altitudeInput } from './htmlElements.js';
 import { TROPOSPHERE_LAPSE_RATE, STRATOSPHERE_LAPSE_RATE, MESOSPHERE_LAPSE_RATE, xMax } from './constants.js';
 
-export function generatePressureChart(seaLevelPressure, standardTemperature) {
+export function generatePressureChart(seaLevelPressure, standardTemperature, isLogarithmic) {
   const ctx = document.getElementById('pressure-chart').getContext('2d');
 
   // Constants for atmospheric layer boundaries
@@ -195,13 +195,15 @@ chart = new Chart(ctx, {
         }
       },
       y: {
-        min: 0,  // minimum y-axis value
+        type: isLogarithmic ? 'logarithmic' : 'linear',
+        min: isLogarithmic ? 0.1 : 0,  // Set the minimum y-axis value based on the scale
+        // min: 0,  // minimum y-axis value
         max: 1200,  // maximum y-axis value
         title: {
           display: true,
           text: 'Air Pressure (hPa)'
         },
-        beginAtZero: true
+        beginAtZero: isLogarithmic ? false : true  // Set beginAtZero based on the scale
       }
     },
     plugins: {
