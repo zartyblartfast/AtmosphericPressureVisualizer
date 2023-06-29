@@ -66,6 +66,12 @@ main {
   text-align: right;
 }
 
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .output-section p {
   display: block;
 }
