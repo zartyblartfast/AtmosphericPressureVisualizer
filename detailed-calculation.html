@@ -1,0 +1,27 @@
+<!-- Needs all hyperlinks checking -->
+<div style="margin-left: 20px; margin-right: 20px;">
+  <h2>Understanding the Calculation Method</h2>
+  <p>Our Atmospheric Pressure Calculator uses a well-established scientific method to estimate air pressure at different altitudes. This method combines the <a href="https://en.wikipedia.org/wiki/Barometric_formula" target="_blank">barometric formula</a> and the <a href="https://en.wikipedia.org/wiki/International_Standard_Atmosphere" target="_blank">International Standard Atmosphere (ISA) model</a>. These models take into account various factors such as altitude, temperature, and the physical properties of air to provide an accurate estimation of atmospheric pressure.</p>
+
+  <h2>Our Verification Process</h2>
+  <p>We've taken steps to ensure the accuracy of our calculations. The calculation method has been thoroughly reviewed and cross-referenced with established scientific models and formulas. We've tested the calculator with a variety of inputs to ensure it works correctly and provides reliable results.</p>
+
+  <h2>The Calculation Process in Detail</h2>
+  <ol>
+    <li><strong>Import constants for the <a href="https://en.wikipedia.org/wiki/Lapse_rate" target="_blank">temperature lapse rates</a> for the 3 <a href="https://www.britannica.com/science/atmosphere" target="_blank">atmosphere layers</a> included in our calculations (troposphere, stratosphere, and mesosphere).</strong></li>
+    <li><strong>Define constants for <a href="https://www.britannica.com/science/gravity-physics" target="_blank">gravitational acceleration (g)</a>, the <a href="https://www.britannica.com/science/molar-gas-constant" target="_blank">molar mass of dry air (m)</a>, and the <a href="https://en.wikipedia.org/wiki/Gas_constant" target="_blank">universal gas constant (R)</a>.</strong></li>
+    <li><strong>Determine the <a href="https://en.wikipedia.org/wiki/Lapse_rate" target="_blank">temperature lapse rate</a> based on the altitude.</strong> The lapse rate is the rate at which atmospheric temperature decreases with an increase in altitude. The lapse rate varies in different layers of the atmosphere.</li>
+    <li><strong>Calculate the temperature at the given altitude</strong> by subtracting the product of the lapse rate and the altitude from the <a href="https://en.wikipedia.org/wiki/Standard_temperature_and_pressure" target="_blank">standard temperature</a>.</li>
+    <li><strong>Adjust the temperature from <a href="https://www.britannica.com/science/Celsius-temperature-scale" target="_blank">Celsius</a> to <a href="https://www.britannica.com/science/Kelvin-temperature-scale" target="_blank">Kelvin</a>.</strong></li>
+    <li><strong>Calculate the pressure at the given altitude</strong> using the formula for pressure in a gas at a certain height: <code>pressure = seaLevelPressure * exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK))</code>.</li>
+    <li><strong>Return the calculated pressure.</strong></li>
+  </ol>
+  
+  <h2>Further Reading and References</h2>
+  <p>If you're interested in learning more about the science behind our calculator, we recommend the following resources:</p>
+  <ul>
+    <li><a href="https://www.iso.org/standard/7472.html" target="_blank">International Standard Atmosphere (ISO 2533:1975)</a>: This is the official standard that defines the ISA model.</li>
+    <li><a href="https://ntrs.nasa.gov/api/citations/19770009539/downloads/19770009539.pdf" target="_blank">U.S. Standard Atmosphere (1976)</a>: This document from NASA provides a detailed description of the U.S. version of the standard atmosphere model.</li>
+    <li><a href="https://en.wikipedia.org/wiki/Barometric_formula" target="_blank">Barometric formula on Wikipedia</a>: This resource provides a good starting point for understanding the mathematical basis of our calculation method.</li>
+  </ul>
+</div>

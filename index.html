@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Atmospheric Pressure Visualizer</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Atmospheric Pressure Visualizer</h1>
+    <p>Explore the relationship between altitude and atmospheric pressure</p>
+  </header>
+
+  <main>
+    <div class="main-content">
+      <div class="input-output-container">
+        <section class="input-section">
+          <h2>Inputs</h2>
+          <!-- Input fields and calculate button -->
+          <div>
+            <label for="sea-level-pressure">Pressure at Sea Level (hPa):</label>
+            <input type="range" id="sea-level-pressure" min="800" max="1100" step="any" value="1013.25" required>
+            <input type="number" id="sea-level-pressure-number" min="800" max="1100" step="any" value="1013.25" required>
+          </div>
+
+          <div class="hide-element">
+            <label for="standard-temperature">Standard Temperature (°C):</label>
+            <input type="range" id="standard-temperature" min="-50" max="50" step="any" value="15" required>
+            <input type="number" id="standard-temperature-number" min="-50" max="50" step="any" value="15" required>
+          </div>
+
+          <div>
+            <label for="altitude">Altitude (km):</label>
+            <input type="range" id="altitude" min="0" max="100" step="any" value="0" required>
+            <input type="number" id="altitude-number" min="0" max="100" step="any" value="0" required>
+          </div>
+        </section>
+
+        <section class="output-section">
+          <h2>Output</h2>
+             <!-- Output label for calculated pressure -->
+            <p>Calculated Pressure: <span id="calculated-pressure"></span></p>
+        </section>
+      </div>
+
+      <section class="visualization-section">
+        <!-- Visualization of atmosphere as a line and the chart -->
+        <canvas id="pressure-chart"></canvas>
+      </section>
+
+      <button type="button" class="collapsible" id="how-to-use-button">How to Use the Visualizer</button>
+      <div class="content"></div>
+
+      <button type="button" class="collapsible" id="detailed-calculation-button">Detailed Calculation Method</button>
+      <div class="content"></div>
+
+      <button type="button" class="collapsible" id="contact-us-button">Contact Us</button>
+      <div class="content"></div>
+    </div>
+
+    <script>
+    $(document).ready(function(){
+      $("#how-to-use-button + .content").load("how-to-use.html");
+      $("#detailed-calculation-button + .content").load("detailed-calculation.html");
+      $("#contact-us-button + .content").load("contact-us.html");
+    });
+    </script>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0"></script>
+  <script src="collapsible.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+
+</html>
+
