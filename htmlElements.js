@@ -7,3 +7,6 @@ export const altitudeValue = document.getElementById('altitude-number');
 export const standardTemperatureValue = document.getElementById('standard-temperature-number');
 
 export const calculatedPressureOutput = document.getElementById('calculated-pressure');
+
+export const chartSwitch = document.getElementById('chart-switch');
+
