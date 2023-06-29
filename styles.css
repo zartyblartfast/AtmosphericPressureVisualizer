@@ -72,29 +72,41 @@ main {
 
 /* Chrome */
 input[type=range]::-webkit-slider-runnable-track {
-  background: #6593F5;
+  background: linear-gradient(to right, #0F2027 0%, #0F2027 50%, #6593F5 50%, #6593F5 100%);
 }
 
 input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
   background: #0F2027;
+  border-radius: 50%;
 }
 
 /* Firefox */
 input[type=range]::-moz-range-track {
-  background: #6593F5;
+  background: linear-gradient(to right, #0F2027 0%, #0F2027 50%, #6593F5 50%, #6593F5 100%);
 }
 
 input[type=range]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
   background: #0F2027;
+  border-radius: 50%;
 }
 
 /* IE */
 input[type=range]::-ms-track {
-  background: #6593F5;
+  background: linear-gradient(to right, #0F2027 0%, #0F2027 50%, #6593F5 50%, #6593F5 100%);
+  color: transparent; /* Removes the color from the slider track */
 }
 
 input[type=range]::-ms-thumb {
+  width: 18px;
+  height: 18px;
   background: #0F2027;
+  border-radius: 50%;
 }
 
 .collapsible {
