@@ -17,10 +17,6 @@ function updatePressureOutput() {
     return;
   }
 
-  console.log("Sea Level Pressure: " + seaLevelPressure);
-  console.log("Altitude: " + altitude);
-  console.log("Standard Temperature: " + standardTemperature);
-
   // Update displayed input values
   seaLevelPressureValue.value = seaLevelPressure.toFixed(2);
   altitudeValue.value = altitude.toFixed(2);
@@ -42,11 +38,7 @@ function updateChart() {
     return;
   }
 
-  console.log("Sea Level Pressure: " + seaLevelPressure);
-  console.log("Standard Temperature: " + standardTemperature);
-
   // Generate the pressure chart
-  // generatePressureChart(seaLevelPressure, standardTemperature);
   generatePressureChart(seaLevelPressure, standardTemperature, scaleSwitch.checked);
 }
 
@@ -79,11 +71,14 @@ standardTemperatureValue.addEventListener('input', function() {
   updateChart();
 });
 
+// Add an event listener to the switch
+scaleSwitch.addEventListener('change', function() {
+  // Call the updateChart function to redraw the chart with the new scale
+  updateChart();
+});
+
 // Initial call to update function
 document.addEventListener('DOMContentLoaded', function() {
   updatePressureOutput();
   updateChart();
 });
-
-
-
