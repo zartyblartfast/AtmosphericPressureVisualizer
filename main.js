@@ -1,15 +1,32 @@
-import { seaLevelPressureInput, altitudeInput, standardTemperatureInput, seaLevelPressureValue, altitudeValue, standardTemperatureValue, calculatedPressureOutput } from './htmlElements.js';
+import { seaLevelPressureValue, altitudeValue, standardTemperatureValue, calculatedPressureOutput, seaLevelPressureSlider, altitudeSlider } from './htmlElements.js';
 import { calculatePressure } from './pressureCalculation.js';
 import { generatePressureChart } from './chartGeneration.js';
 
 const scaleSwitch = document.getElementById('scaleSwitch');
 
+// Initialize the sliders
+noUiSlider.create(seaLevelPressureSlider, {
+  start: [1013.25],
+  range: {
+    'min': [800],
+    'max': [1100]
+  }
+});
+
+noUiSlider.create(altitudeSlider, {
+  start: [0],
+  range: {
+    'min': [0],
+    'max': [100]
+  }
+});
+
 // Function to update pressure output
 function updatePressureOutput() {
   // Parse input values
-  let seaLevelPressure = parseFloat(seaLevelPressureInput.value);
-  let altitude = parseFloat(altitudeInput.value);
-  let standardTemperature = parseFloat(standardTemperatureInput.value);
+  let seaLevelPressure = parseFloat(seaLevelPressureSlider.noUiSlider.get());
+  let altitude = parseFloat(altitudeSlider.noUiSlider.get());
+  let standardTemperature = parseFloat(standardTemperatureValue.value);
 
   // Basic input validation
   if (isNaN(seaLevelPressure) || isNaN(altitude) || isNaN(standardTemperature)) {
@@ -30,8 +47,8 @@ function updatePressureOutput() {
 // Function to update chart
 function updateChart() {
   // Parse input values
-  let seaLevelPressure = parseFloat(seaLevelPressureInput.value);
-  let standardTemperature = parseFloat(standardTemperatureInput.value);
+  let seaLevelPressure = parseFloat(seaLevelPressureSlider.noUiSlider.get());
+  let standardTemperature = parseFloat(standardTemperatureValue.value);
 
   // Basic input validation
   if (isNaN(seaLevelPressure) || isNaN(standardTemperature)) {
@@ -42,31 +59,26 @@ function updateChart() {
   generatePressureChart(seaLevelPressure, standardTemperature, scaleSwitch.checked);
 }
 
-// Add event listeners to input fields
-seaLevelPressureInput.addEventListener('input', function() {
+// Add event listeners to slider elements
+seaLevelPressureSlider.noUiSlider.on('update', function() {
   updatePressureOutput();
   updateChart();
 });
 
-altitudeInput.addEventListener('input', updatePressureOutput);
-standardTemperatureInput.addEventListener('input', function() {
-  updatePressureOutput();
-  updateChart();
-});
+altitudeSlider.noUiSlider.on('update', updatePressureOutput);
 
 // Add event listeners to input number fields
 seaLevelPressureValue.addEventListener('input', function() {
-  seaLevelPressureInput.value = this.value;
+  seaLevelPressureSlider.noUiSlider.set(this.value);
   updatePressureOutput();
   updateChart();
 });
 altitudeValue.addEventListener('input', function() {
-  altitudeInput.value = this.value;
+  altitudeSlider.noUiSlider.set(this.value);
   updatePressureOutput();
   updateChart();  // necessary to update the x axis marker on the chart
 });
 standardTemperatureValue.addEventListener('input', function() {
-  standardTemperatureInput.value = this.value;
   updatePressureOutput();
   updateChart();
 });
