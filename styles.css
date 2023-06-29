@@ -105,7 +105,7 @@ main {
   height: 15px; 
 }
 
-.switch input + span {
+.switch input {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -115,20 +115,4 @@ main {
   background-color: #ccc;
   transition: .4s;
   border-radius: 15px; /* Reduced this value */
-}
-
-.switch input + span:before {
-  position: absolute;
-  content: "";
-  height: 12px; 
-  width: 12px; 
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%; /* Make it round */
-}
-
-.switch input:checked + span:before {
-  transform: translateX(15px); /* Reduced this value */
 }
