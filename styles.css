@@ -114,7 +114,7 @@ main {
   bottom: 0;
   background-color: #ccc;
   transition: .4s;
-  border-radius: 34px; 
+  border-radius: 15px; /* Reduced this value */
 }
 
 .switch input + span:before {
