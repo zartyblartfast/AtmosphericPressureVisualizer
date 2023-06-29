@@ -2,6 +2,8 @@ import { seaLevelPressureInput, altitudeInput, standardTemperatureInput, seaLeve
 import { calculatePressure } from './pressureCalculation.js';
 import { generatePressureChart } from './chartGeneration.js';
 
+const scaleSwitch = document.getElementById('scaleSwitch');
+
 // Function to update pressure output
 function updatePressureOutput() {
   // Parse input values
@@ -44,7 +46,8 @@ function updateChart() {
   console.log("Standard Temperature: " + standardTemperature);
 
   // Generate the pressure chart
-  generatePressureChart(seaLevelPressure, standardTemperature);
+  // generatePressureChart(seaLevelPressure, standardTemperature);
+  generatePressureChart(seaLevelPressure, standardTemperature, scaleSwitch.checked);
 }
 
 // Add event listeners to input fields
