@@ -1,4 +1,4 @@
-import { seaLevelPressureValue, altitudeValue, standardTemperatureValue, calculatedPressureOutput, seaLevelPressureSlider, altitudeSlider } from './htmlElements.js';
+import { seaLevelPressureValue, altitudeValue, standardTemperatureValue, calculatedPressureOutput, seaLevelPressureSlider, altitudeSlider, standardTemperatureSlider } from './htmlElements.js';
 import { calculatePressure } from './pressureCalculation.js';
 import { generatePressureChart } from './chartGeneration.js';
 
@@ -10,6 +10,15 @@ noUiSlider.create(seaLevelPressureSlider, {
   range: {
     'min': [800],
     'max': [1100]
+  }
+});
+
+// Initialize the sliders
+noUiSlider.create(standardTemperatureSlider, {
+  start: [15],
+  range: {
+    'min': [-50],
+    'max': [50]
   }
 });
 
@@ -69,18 +78,26 @@ seaLevelPressureSlider.noUiSlider.on('update', function() {
 
 altitudeSlider.noUiSlider.on('update', updatePressureOutput);
 
+standardTemperatureSlider.noUiSlider.on('update', function() {
+  updatePressureOutput();
+  updateChart();
+});
+
 // Add event listeners to input number fields
 seaLevelPressureValue.addEventListener('input', function() {
   seaLevelPressureSlider.noUiSlider.set(this.value);
   updatePressureOutput();
   updateChart();
 });
+
 altitudeValue.addEventListener('input', function() {
   altitudeSlider.noUiSlider.set(this.value);
   updatePressureOutput();
   updateChart();  // necessary to update the x axis marker on the chart
 });
+
 standardTemperatureValue.addEventListener('input', function() {
+  standardTemperatureSlider.noUiSlider.set(this.value);
   updatePressureOutput();
   updateChart();
 });
@@ -96,3 +113,4 @@ document.addEventListener('DOMContentLoaded', function() {
   updatePressureOutput();
   updateChart();
 });
+
