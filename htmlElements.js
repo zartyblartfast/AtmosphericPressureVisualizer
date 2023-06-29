@@ -7,6 +7,5 @@ export const calculatedPressureOutput = document.getElementById('calculated-pres
 export const chartSwitch = document.getElementById('chart-switch');
 
 export const seaLevelPressureSlider = document.getElementById('sea-level-pressure-slider');
+export const standardTemperatureSlider = document.getElementById('standard-temperature-slider');
 export const altitudeSlider = document.getElementById('altitude-slider');
-
-
