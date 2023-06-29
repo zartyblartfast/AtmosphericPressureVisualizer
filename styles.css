@@ -109,6 +109,11 @@ input[type=range]::-ms-thumb {
   border-radius: 50%;
 }
 
+.noUi-target {
+    height: 10px;
+    width: 50%;
+}
+
 .collapsible {
   cursor: pointer;
   border: 1px solid #6593F5; /* Adjust the color as needed */
