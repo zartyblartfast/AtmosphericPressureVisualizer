@@ -88,15 +88,21 @@ main {
 }
 
 .noUi-handle {
-    width: 15px;  /* Reduced from 20px to 15px */
-    height: 15px;  /* Reduced from 20px to 15px */
+    width: 20px;
+    height: 20px;
     border: 0;
     border-radius: 50%;
     background: #6593F5;
     cursor: pointer;
     box-shadow: 0 0 5px #3D7EBA;
     outline: none;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    margin-top: -10px; /* Half of the handle's height */
+    margin-left: -10px; /* Half of the handle's width */
 }
+
 
 .noUi-connect {
     background: #3D7EBA;
