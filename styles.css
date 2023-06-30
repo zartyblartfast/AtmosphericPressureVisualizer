@@ -87,21 +87,6 @@ main {
     box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #BBB;
 }
 
-.noUi-handle {
-    width: 20px;
-    height: 20px;
-    border: 0;
-    border-radius: 50%;
-    background: #6593F5;
-    cursor: pointer;
-    box-shadow: 0 0 5px #3D7EBA;
-    outline: none;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    margin-top: -10px; /* Half of the handle's height */
-    margin-left: -10px; /* Half of the handle's width */
-}
 
 
 .noUi-connect {
@@ -112,9 +97,15 @@ main {
 }
 
 .slider-container .noUi-handle {
-  height: 20px; /* Adjust the height of the slider handle */
-  width: 20px; /* Adjust the width of the slider handle */
-  transform: translate(-50%, -50%); /* Center the handle both vertically and horizontally */
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 50%;
+  background: #6593F5;
+  cursor: pointer;
+  box-shadow: 0 0 5px #3D7EBA;
+  outline: none;
+  transform: translateY(-50%);
 }
 
 .slider-container .noUi-handle:before,
