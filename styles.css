@@ -102,8 +102,6 @@ main {
 }
 
 .noUi-horizontal .noUi-handle {
-    width: 12px;
-    height: 12px;
     top: -12px;
 }
 
