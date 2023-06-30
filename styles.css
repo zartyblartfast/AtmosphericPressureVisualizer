@@ -59,7 +59,7 @@ main {
 
 .input-section input[type="number"] {
   width: 20%;
-  max-width: 100px; /* Add this line, adjust the value as needed */
+  max-width: 150px; /* Add this line, adjust the value as needed */
 }
 
 .input-section span {
