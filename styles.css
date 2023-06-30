@@ -97,28 +97,24 @@ main {
 }
 
 .slider-container .noUi-handle {
-  width: 20px;
-  height: 20px;
+  width: 0;
+  height: 0;
   border: 0;
-  border-radius: 50%;
-  background: #6593F5;
-  cursor: pointer;
-  box-shadow: 0 0 5px #3D7EBA;
+  background: none;
+  box-shadow: none;
   outline: none;
-  transform: translateY(-50%);
 }
 
-.slider-container .noUi-handle:before,
-.slider-container .noUi-handle:after {
-  display: none; /* Hide the default handle pseudo-elements */
-}
-.collapsible {
-  cursor: pointer;
-  border: 1px solid #6593F5; /* Adjust the color as needed */
-  outline: none;
-  width: 100%;
-  background: linear-gradient(45deg, #B3CCDD, #6593F5, #0F2027); /* Same gradient as the header */
-  color: white; /* Adjust the text color so it's visible against the gradient */
+.slider-container .noUi-handle:before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: #6593F5;
+  border-radius: 50%;
+  position: relative;
+  left: -10px;
+  box-shadow: 0 0 5px #3D7EBA;
 }
 
 .content {
