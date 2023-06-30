@@ -77,7 +77,11 @@ seaLevelPressureSlider.noUiSlider.on('update', function() {
   updateChart();
 });
 
-altitudeSlider.noUiSlider.on('update', updatePressureOutput);
+// Add event listeners to slider elements
+altitudeSlider.noUiSlider.on('update', function() {
+  updatePressureOutput();
+  updateChart();
+});
 
 standardTemperatureSlider.noUiSlider.on('update', function() {
   updatePressureOutput();
