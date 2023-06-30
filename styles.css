@@ -57,6 +57,11 @@ main {
   margin-right: 10px;
 }
 
+.input-section input[type="number"] {
+  width: 20%;
+  max-width: 60px; /* Add this line, adjust the value as needed */
+}
+
 .input-section span {
   margin-left: 10px;
   min-width: 60px;
