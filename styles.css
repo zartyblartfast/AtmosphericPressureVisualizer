@@ -67,8 +67,12 @@ main {
 
 .slider-container {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: center; /* Vertically center the elements */
+  margin-bottom: 15px;
+}
+
+.slider-container .noUi-horizontal {
+  height: 8px; /* Adjust the height of the slider track */
 }
 
 .output-section p {
@@ -101,10 +105,16 @@ main {
     transition: background 450ms;
 }
 
-.noUi-horizontal .noUi-handle {
-    top: -5px;
+.slider-container .noUi-handle {
+  height: 20px; /* Adjust the height of the slider handle */
+  width: 20px; /* Adjust the width of the slider handle */
+  transform: translate(-50%, -50%); /* Center the handle both vertically and horizontally */
 }
 
+.slider-container .noUi-handle:before,
+.slider-container .noUi-handle:after {
+  display: none; /* Hide the default handle pseudo-elements */
+}
 .collapsible {
   cursor: pointer;
   border: 1px solid #6593F5; /* Adjust the color as needed */
