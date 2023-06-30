@@ -1,10 +1,10 @@
 let chart; // Add this line at the start of your chartGeneration.js file
 
 import { calculatePressure } from './pressureCalculation.js';
-import { seaLevelPressureInput, altitudeInput } from './htmlElements.js';
+import { seaLevelPressureSlider, altitudeSlider } from './htmlElements.js';
 import { TROPOSPHERE_LAPSE_RATE, STRATOSPHERE_LAPSE_RATE, MESOSPHERE_LAPSE_RATE, xMax } from './constants.js';
 
-export function generatePressureChart(seaLevelPressure, standardTemperature) {
+export function generatePressureChart(seaLevelPressure, standardTemperature, isLogarithmic) {
   const ctx = document.getElementById('pressure-chart').getContext('2d');
 
   // Constants for atmospheric layer boundaries
@@ -89,9 +89,9 @@ const drawRectanglesPlugin = {
 
     // Draw rectangles for the atmospheric layers
     drawRectangle(0, TROPOSPHERE, 'rgba(135, 206, 235, 0.3)', 'Troposphere'); // Troposphere
-    drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(75, 0, 130, 0.3)', 'Stratosphere'); // Stratosphere
-    drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 0, 0, 0.3)', 'Mesosphere'); // Mesosphere
-    drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 165, 0, 0.3)', 'Thermosphere'); // Thermosphere
+    drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(70, 130, 180, 0.3)', 'Stratosphere'); // Stratosphere
+    drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(25, 25, 112, 0.3)', 'Mesosphere'); // Mesosphere
+    drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(0, 0, 139, 0.3)', 'Thermosphere'); // Thermosphere
   }
 };
 
@@ -154,7 +154,8 @@ const drawRectanglesPlugin = {
     const { ctx, scales } = chart;
     const { x, y } = scales;
     
-    const altitude = parseFloat(altitudeInput.value);
+    //const altitude = parseFloat(altitudeInput.value);
+    const altitude = parseFloat(altitudeSlider.noUiSlider.get());
     const xPosition = x.getPixelForValue(altitude);
     const yPosition = y.getPixelForValue(y.min);  // y-axis min value
 
@@ -195,13 +196,15 @@ chart = new Chart(ctx, {
         }
       },
       y: {
-        min: 0,  // minimum y-axis value
+        type: isLogarithmic ? 'logarithmic' : 'linear',
+        min: isLogarithmic ? 0.1 : 0,  // Set the minimum y-axis value based on the scale
+        // min: 0,  // minimum y-axis value
         max: 1200,  // maximum y-axis value
         title: {
           display: true,
           text: 'Air Pressure (hPa)'
         },
-        beginAtZero: true
+        beginAtZero: isLogarithmic ? false : true  // Set beginAtZero based on the scale
       }
     },
     plugins: {

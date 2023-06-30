@@ -4,9 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/nouislider@14.6.3/distribute/nouislider.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <title>Atmospheric Pressure Visualizer</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/nouislider@14.6.3/distribute/nouislider.min.js"></script>
 </head>
 
 <body>
@@ -21,21 +23,21 @@
         <section class="input-section">
           <h2>Inputs</h2>
           <!-- Input fields and calculate button -->
-          <div>
+          <div class="slider-container">
             <label for="sea-level-pressure">Pressure at Sea Level (hPa):</label>
-            <input type="range" id="sea-level-pressure" min="800" max="1100" step="any" value="1013.25" required>
+            <div id="sea-level-pressure-slider"></div>
             <input type="number" id="sea-level-pressure-number" min="800" max="1100" step="any" value="1013.25" required>
           </div>
-
-          <div class="hide-element">
+          
+          <div class="slider-container hide-element">
             <label for="standard-temperature">Standard Temperature (°C):</label>
-            <input type="range" id="standard-temperature" min="-50" max="50" step="any" value="15" required>
+            <div id="standard-temperature-slider"></div>
             <input type="number" id="standard-temperature-number" min="-50" max="50" step="any" value="15" required>
           </div>
 
-          <div>
+          <div class="slider-container">
             <label for="altitude">Altitude (km):</label>
-            <input type="range" id="altitude" min="0" max="100" step="any" value="0" required>
+            <div id="altitude-slider"></div>
             <input type="number" id="altitude-number" min="0" max="100" step="any" value="0" required>
           </div>
         </section>
@@ -45,6 +47,14 @@
              <!-- Output label for calculated pressure -->
             <p>Calculated Pressure: <span id="calculated-pressure"></span></p>
         </section>
+      </div>
+
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" id="scaleSwitch">
+          <!-- <span class="slider round"></span> -->
+        </label>
+        <label for="scaleSwitch">Logarithmic Scale</label>
       </div>
 
       <section class="visualization-section">
