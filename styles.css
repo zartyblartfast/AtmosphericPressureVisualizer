@@ -48,7 +48,9 @@ main {
   align-items: center;
   width: 100%;
   margin-top: 10px;
+  font-size: 14px;
 }
+
 
 .input-section input[type="range"] {
   margin-left: 10px;
