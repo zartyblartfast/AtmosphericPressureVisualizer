@@ -111,8 +111,8 @@ main {
   background: #6593F5;
   border-radius: 50%;
   position: relative;
-  left: -10px; /* Adjust this value as needed */
-  top: -10px; /* Adjust this value as needed */
+  left: -30px; /* Adjust this value as needed */
+  top: -20px; /* Adjust this value as needed */
   box-shadow: 0 0 5px #3D7EBA;
 }
 
