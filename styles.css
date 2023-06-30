@@ -75,6 +75,9 @@ main {
   margin-right: 20px; /* Add this line */
 }
 
+.slider-container div {
+  margin-right: 20px; /* Adjust this value as needed */
+}
 .output-section p {
   display: block;
 }
