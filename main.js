@@ -35,7 +35,8 @@ function updatePressureOutput() {
   // Parse input values
   let seaLevelPressure = parseFloat(seaLevelPressureSlider.noUiSlider.get());
   let altitude = parseFloat(altitudeSlider.noUiSlider.get());
-  let standardTemperature = parseFloat(standardTemperatureValue.value);
+  let standardTemperature = parseFloat(standardTemperatureSlider.noUiSlider.get());
+
 
   // Basic input validation
   if (isNaN(seaLevelPressure) || isNaN(altitude) || isNaN(standardTemperature)) {
