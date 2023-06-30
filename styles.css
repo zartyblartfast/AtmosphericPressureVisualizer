@@ -11,7 +11,6 @@ header {
   color: white; /* Change the text color to white for better visibility */
 }
 
-
 main {
   display: flex;
   flex-direction: column;
@@ -76,48 +75,34 @@ main {
   display: block;
 }
 
-/* Chrome */
-input[type=range]::-webkit-slider-runnable-track {
-  background: linear-gradient(to right, #0F2027 0%, #0F2027 50%, #6593F5 50%, #6593F5 100%);
-}
-
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  background: #0F2027;
-  border-radius: 50%;
-}
-
-/* Firefox */
-input[type=range]::-moz-range-track {
-  background: linear-gradient(to right, #0F2027 0%, #0F2027 50%, #6593F5 50%, #6593F5 100%);
-}
-
-input[type=range]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  background: #0F2027;
-  border-radius: 50%;
-}
-
-/* IE */
-input[type=range]::-ms-track {
-  background: linear-gradient(to right, #0F2027 0%, #0F2027 50%, #6593F5 50%, #6593F5 100%);
-  color: transparent; /* Removes the color from the slider track */
-}
-
-input[type=range]::-ms-thumb {
-  width: 18px;
-  height: 18px;
-  background: #0F2027;
-  border-radius: 50%;
-}
-
 .noUi-target {
     height: 10px;
     width: 50%;
+    background: #E8E8E8;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #BBB;
+}
+
+.noUi-handle {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background: #6593F5;
+    cursor: pointer;
+    box-shadow: 0 0 5px #3D7EBA;
+    outline: none;
+}
+
+.noUi-horizontal .noUi-handle {
+    top: -10px;
+}
+
+.noUi-connect {
+    background: #3D7EBA;
+    box-shadow: inset 0 0 3px rgba(51,51,51,0.45);
+    -webkit-transition: background 450ms;
+    transition: background 450ms;
 }
 
 .collapsible {
@@ -128,7 +113,6 @@ input[type=range]::-ms-thumb {
   background: linear-gradient(45deg, #B3CCDD, #6593F5, #0F2027); /* Same gradient as the header */
   color: white; /* Adjust the text color so it's visible against the gradient */
 }
-
 
 .content {
   display: none;
@@ -177,3 +161,32 @@ label[for="scaleSwitch"] {
   font-size: 10px; /* Adjust this value as needed */
 }
 
+.noUi-target {
+    height: 10px;
+    width: 50%;
+    background: #E8E8E8;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #BBB;
+}
+
+.noUi-handle {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background: #6593F5;
+    cursor: pointer;
+    box-shadow: 0 0 5px #3D7EBA;
+    outline: none;
+}
+
+.noUi-horizontal .noUi-handle {
+    top: -10px;
+}
+
+.noUi-connect {
+    background: #3D7EBA;
+    box-shadow: inset 0 0 3px rgba(51,51,51,0.45);
+    -webkit-transition: background 450ms;
+    transition: background 450ms;
+}
