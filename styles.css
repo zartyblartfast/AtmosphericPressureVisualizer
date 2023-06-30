@@ -173,13 +173,13 @@ label[for="scaleSwitch"] {
 }
 
 .noUi-handle {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     border: 0;
     border-radius: 50%;
     background: #6593F5;
     cursor: pointer;
-    box-shadow: 0 0 5px #3D7EBA;
+    box-shadow: 0 0 3px #3D7EBA;
     outline: none;
 }
 
