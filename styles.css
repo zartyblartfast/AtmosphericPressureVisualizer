@@ -55,8 +55,9 @@ main {
   margin-right: 10px;
 }
 
-.input-section input[type="number"] {
-  width: 20%;
+.input-section input[type="range"] {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .input-section span {
