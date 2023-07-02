@@ -6,11 +6,17 @@ body {
 
 header {
   text-align: center;
-  background: linear-gradient(45deg, #B3CCDD, #6593F5, #0F2027);
-  padding: 2px;
+  background: linear-gradient(45deg, #b3ccdd, #6593f5, #0f2027);
+  padding: 25px 20px;
   color: white; /* Change the text color to white for better visibility */
 }
+header h1 {
+  margin: 0 0 10px 0;
+}
 
+header p {
+  margin: 0;
+}
 main {
   display: flex;
   flex-direction: column;
@@ -34,23 +40,38 @@ main {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  margin-right: 20px;
-  padding-left: 50px;
-  width: 100%;
+  width: 97%;
+  padding: 20px 0 25px;
 }
 
-.input-section, .output-section {
+.input-section {
   width: 50%;
+  flex: 0 0 auto;
+  position: relative;
 }
-
+.input-section:before {
+  position: absolute;
+  content: "";
+  top: 20px;
+  width: 1px;
+  height: calc(100% - 20px);
+  background-color: #000;
+  right: 0;
+}
+.output-section {
+  padding-left: 20px;
+  width: calc(50% - 20px);
+  flex: 0 0 auto;
+}
 .input-section label {
   display: flex;
   align-items: center;
   width: 100%;
   margin-top: 10px;
   font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: 600;
 }
-
 
 .input-section input[type="range"] {
   margin-left: 10px;
@@ -60,9 +81,11 @@ main {
 .input-section input[type="number"] {
   width: 20%;
   max-width: 150px; /* Adjust this value as needed */
-  padding-left: 20px; /* Add this line */
+  border: 1px solid;
+  text-align: center;
+  padding: 4px;
+  border-radius: 4px;
 }
-
 
 .input-section span {
   margin-left: 10px;
@@ -75,54 +98,89 @@ main {
   align-items: center;
   justify-content: space-between;
   margin-right: 20px; /* Add this line */
+  flex-wrap: wrap; /* line break */
 }
 
-.slider-container div {
-  margin-right: 20px; /* Adjust this value as needed */
-}
+/* .slider-container div {
+  margin-right: 20px; 
+} */
 .output-section p {
   display: block;
 }
 
 .noUi-target {
-    height: 5px;  /* Reduced from 10px to 5px */
-    width: 50%;
-    background: #E8E8E8;
-    border-radius: 10px;
-    box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #BBB;
+  height: 5px; /* Reduced from 10px to 5px */
+  width: 66%;
+  background: #e8e8e8;
+  border-radius: 10px;
+  box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #bbb;
 }
 
 .noUi-handle {
-    width: 12px;
-    height: 12px;
-    border: 0;
-    border-radius: 50%;
-    background: #6593F5;
-    cursor: pointer;
-    box-shadow: 0 0 5px #3D7EBA;
-    outline: none;
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 50%;
+  background: #6593f5;
+  cursor: pointer;
+  box-shadow: 0 0 5px #3d7eba;
+  outline: none;
 }
 
 .noUi-connect {
-    background: #3D7EBA;
-    box-shadow: inset 0 0 3px rgba(51,51,51,0.45);
-    -webkit-transition: background 450ms;
-    transition: background 450ms;
+  background: #3d7eba;
+  box-shadow: inset 0 0 3px rgba(51, 51, 51, 0.45);
+  -webkit-transition: background 450ms;
+  transition: background 450ms;
 }
 
 .noUi-horizontal .noUi-handle {
-    top: -12px;
+  top: -14px;
+  width: 30px;
+  height: 30px;
 }
-
+.noUi-handle:after,
+.noUi-handle:before {
+  left: 12px;
+  top: 8px;
+}
+.noUi-handle:after {
+  left: 16px;
+}
 .collapsible {
+  position: relative;
   cursor: pointer;
-  border: 1px solid #6593F5; /* Adjust the color as needed */
+  border: 1px solid #6593f5; /* Adjust the color as needed */
   outline: none;
   width: 100%;
-  background: linear-gradient(45deg, #B3CCDD, #6593F5, #0F2027); /* Same gradient as the header */
+  background: linear-gradient(
+    45deg,
+    #b3ccdd,
+    #6593f5,
+    #0f2027
+  ); /* Same gradient as the header */
   color: white; /* Adjust the text color so it's visible against the gradient */
+  margin-bottom: 9px; /*adding space each button */
+  text-align: left; /* Align text left */
+  font-size: 16px; /* Font size 16px */
+  padding: 9px 15px;
+}
+.collapsible .icon {
+
+  font-size: 21px;
+  position: absolute;
+  right: 15px;
+  top: 6px;
+  line-height: 1;
 }
 
+.collapsible .icon:after {
+  content: "+";
+}
+
+.collapsible.active .icon:after {
+  content: "-";
+}
 .content {
   display: none;
   overflow: hidden;
@@ -143,15 +201,14 @@ main {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 0px;
-  width: 100%;
-  padding-right: 30px; /* Adjust this value as needed */
+  width: calc(100% - 30px); /* Adjust this value as needed */
 }
 
 .switch {
   position: relative;
   display: inline-block;
-  width: 30px; 
-  height: 15px; 
+  width: 30px;
+  height: 15px;
 }
 
 .switch input {
@@ -162,10 +219,27 @@ main {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  transition: .4s;
+  transition: 0.4s;
   border-radius: 15px; /* Reduced this value */
 }
 
 label[for="scaleSwitch"] {
   font-size: 10px; /* Adjust this value as needed */
+}
+
+@media (max-width: 480px) {
+  .input-output-container {
+    width: 90%;
+  }
+  .input-section label {
+    margin-bottom: 20px;
+  }
+  .noUi-target {
+    width: 100%;
+  }
+  .input-section input[type="number"] {
+    width: 100%;
+    max-width: 100px;
+    margin-top: 20px;
+  }
 }
