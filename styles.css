@@ -87,6 +87,18 @@ main {
   border-radius: 4px;
 }
 
+.input-section select {
+  border: 1px solid;
+  padding: 4px;
+  border-radius: 4px;
+  background: white;
+  min-width: 150px;
+}
+
+.unit-container {
+  align-items: center;
+}
+
 .input-section span {
   margin-left: 10px;
   min-width: 60px;
@@ -197,6 +209,144 @@ main {
   width: 100%;
 }
 
+.altitude-reference-section {
+  width: 97%;
+  margin: 10px 0 20px;
+}
+
+.altitude-reference-section h2 {
+  margin-bottom: 6px;
+}
+
+.section-introduction {
+  margin-top: 0;
+  font-size: 13px;
+}
+
+.altitude-reference-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.altitude-reference {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #6593f5;
+  border-radius: 4px;
+  background: #f7f9ff;
+  color: #111;
+  padding: 8px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.altitude-reference:hover,
+.altitude-reference:focus-visible {
+  background: #e8efff;
+}
+
+.reference-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #6593f5;
+  color: white;
+  font-size: 11px;
+}
+
+.altitude-reference strong,
+.altitude-reference small {
+  display: block;
+}
+
+.altitude-reference small {
+  margin-top: 2px;
+  color: #555;
+  font-size: 11px;
+}
+
+.comparison-table-container {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.comparison-table caption {
+  margin-bottom: 6px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 6px 8px;
+  border: 1px solid #c8d3ed;
+  text-align: left;
+}
+
+.comparison-table thead th {
+  background: #e8efff;
+}
+
+.comparison-table tbody th {
+  font-weight: 600;
+}
+
+.science-content {
+  margin: 0 20px 20px;
+}
+
+.air-column-explanation {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.air-column-diagram {
+  width: 100%;
+  max-width: 390px;
+  height: auto;
+  overflow: visible;
+}
+
+.air-column-background {
+  fill: url(#air-column-gradient);
+  stroke: #6593f5;
+  stroke-width: 2;
+}
+
+.rarefied-zone { fill: rgba(126, 87, 194, 0.12); }
+.karman-line { stroke: #7e57c2; stroke-width: 1.5; stroke-dasharray: 5 4; }
+.karman-label, .karman-sub-label, .ground-label, .pressure-label, .gravity-label { fill: #0f2027; font-family: Arial, sans-serif; }
+.karman-label { font-size: 10px; font-weight: 700; }
+.karman-sub-label, .ground-label { font-size: 8px; }
+.air-molecules { fill: #0f2027; }
+.ground-line { stroke: #0f2027; stroke-width: 3; }
+.gravity-arrow-line { stroke: #6593f5; stroke-width: 2; stroke-dasharray: 5 4; }
+.gravity-arrow-head { fill: none; stroke: #6593f5; stroke-width: 2; }
+.gravity-label, .pressure-label { font-size: 10px; }
+.pressure-label-high { fill: #6a4a9b; font-weight: 700; }
+.pressure-label-low { font-weight: 700; }
+
+.science-note {
+  margin: 0 20px 20px;
+  padding: 10px;
+  border-left: 3px solid #7e57c2;
+  background: rgba(126, 87, 194, 0.08);
+  font-size: 13px;
+}
+
 .switch-container {
   display: flex;
   justify-content: flex-end;
@@ -241,5 +391,19 @@ label[for="scaleSwitch"] {
     width: 100%;
     max-width: 100px;
     margin-top: 20px;
+  }
+  .input-section select {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .altitude-reference-list {
+    grid-template-columns: 1fr;
+  }
+  .air-column-diagram {
+    width: 100%;
+  }
+  .science-note {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }

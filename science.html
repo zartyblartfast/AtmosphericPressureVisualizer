@@ -1,0 +1,61 @@
+<div class="science-content">
+  <h2>Why Does Atmospheric Pressure Decrease with Altitude?</h2>
+  <p>Atmospheric pressure is the force produced by the weight of the air above a given point. At sea level, there is a tall column of atmosphere above you. As you climb, part of that column is below you, so the air above weighs less and the pressure falls.</p>
+
+  <section class="air-column-explanation" aria-label="Illustration of atmospheric molecules becoming less dense with altitude">
+    <svg class="air-column-diagram" viewBox="0 0 390 285" role="img" aria-labelledby="air-column-title air-column-description">
+      <title id="air-column-title">Air molecules become more widely spaced with altitude</title>
+      <desc id="air-column-description">Many molecules are shown close together near the ground, becoming increasingly sparse higher up. The K&aacute;rm&aacute;n line is marked at 100 kilometres as a conventional boundary of space, not a sharp end to the atmosphere.</desc>
+      <defs>
+        <linearGradient id="air-column-gradient" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#6593f5" stop-opacity="0.24" />
+          <stop offset="100%" stop-color="#6593f5" stop-opacity="0.03" />
+        </linearGradient>
+      </defs>
+
+      <rect class="air-column-background" x="24" y="18" width="176" height="239" rx="4" />
+      <rect class="rarefied-zone" x="24" y="18" width="176" height="42" rx="4" />
+      <line class="karman-line" x1="24" y1="60" x2="365" y2="60" />
+      <text class="karman-label" x="214" y="30">100 km &middot; K&aacute;rm&aacute;n line</text>
+      <text class="karman-sub-label" x="214" y="44">conventional boundary of space</text>
+
+      <!-- The dots become progressively more dispersed above the ground. -->
+      <g class="air-molecules" aria-hidden="true">
+        <circle cx="42" cy="218" r="3" /><circle cx="58" cy="214" r="3" /><circle cx="76" cy="219" r="3" /><circle cx="94" cy="212" r="3" /><circle cx="112" cy="218" r="3" /><circle cx="130" cy="214" r="3" /><circle cx="148" cy="220" r="3" /><circle cx="166" cy="213" r="3" /><circle cx="184" cy="218" r="3" />
+        <circle cx="48" cy="199" r="3" /><circle cx="66" cy="193" r="3" /><circle cx="84" cy="201" r="3" /><circle cx="102" cy="195" r="3" /><circle cx="120" cy="202" r="3" /><circle cx="138" cy="195" r="3" /><circle cx="156" cy="201" r="3" /><circle cx="174" cy="194" r="3" />
+        <circle cx="58" cy="181" r="3" /><circle cx="78" cy="176" r="3" /><circle cx="98" cy="184" r="3" /><circle cx="118" cy="178" r="3" /><circle cx="138" cy="184" r="3" /><circle cx="158" cy="176" r="3" />
+        <circle cx="48" cy="160" r="3" /><circle cx="72" cy="153" r="3" /><circle cx="98" cy="164" r="3" /><circle cx="124" cy="151" r="3" /><circle cx="150" cy="161" r="3" /><circle cx="180" cy="151" r="3" />
+        <circle cx="61" cy="138" r="3" /><circle cx="92" cy="130" r="3" /><circle cx="122" cy="143" r="3" /><circle cx="158" cy="130" r="3" />
+        <circle cx="53" cy="113" r="3" /><circle cx="86" cy="105" r="3" /><circle cx="132" cy="116" r="3" /><circle cx="172" cy="103" r="3" />
+        <circle cx="69" cy="88" r="3" /><circle cx="111" cy="77" r="3" /><circle cx="158" cy="89" r="3" />
+        <circle cx="91" cy="67" r="3" /><circle cx="146" cy="68" r="3" />
+        <circle cx="76" cy="47" r="2.5" /><circle cx="166" cy="51" r="2.5" />
+      </g>
+
+      <line class="ground-line" x1="20" y1="257" x2="204" y2="257" />
+      <text class="ground-label" x="28" y="276">Earth's surface</text>
+
+      <path class="gravity-arrow-line" d="M244 50 V205" />
+      <path class="gravity-arrow-head" d="M236 194 L244 210 L252 194" />
+      <text class="gravity-label" x="262" y="150">Gravity pulls</text>
+      <text class="gravity-label" x="262" y="165">molecules toward</text>
+      <text class="gravity-label" x="262" y="180">Earth</text>
+
+      <text class="pressure-label pressure-label-high" x="214" y="72">Very sparse air</text>
+      <text class="pressure-label pressure-label-high" x="214" y="86">Partial-vacuum</text>
+      <text class="pressure-label pressure-label-high" x="214" y="100">conditions increase</text>
+      <text class="pressure-label pressure-label-low" x="214" y="218">Dense air</text>
+      <text class="pressure-label pressure-label-low" x="214" y="232">Higher pressure</text>
+    </svg>
+  </section>
+  <p class="science-note"><strong>There is no sharp vacuum boundary.</strong> Gas becomes progressively more rarefied as altitude increases. The K&aacute;rm&aacute;n line at 100 km is a widely used conventional boundary of space; molecules still exist above it, but collisions become much less frequent and the atmosphere gradually approaches near-vacuum conditions.</p>
+
+  <h3>Why is the curve not a straight line?</h3>
+  <p>Air is densest near Earth's surface because gravity concentrates more molecules there. A modest increase in altitude therefore removes a relatively large amount of air from the column above. Higher up, the air is already very thin, so the absolute pressure change becomes smaller.</p>
+
+  <h3>Temperature also matters</h3>
+  <p>Temperature affects how spread out the air is. The atmosphere is divided into layers with different temperature trends, so the visualizer uses a simplified atmospheric model rather than one constant rate of decrease. The pressure curve is therefore shaped by both gravity and the temperature profile.</p>
+
+  <h3>What the visualizer calculates</h3>
+  <p>The calculator uses the barometric formula with the selected sea-level pressure, altitude, and atmospheric temperature model. The result is calculated internally in hPa and can then be displayed in the pressure unit you choose.</p>
+</div>

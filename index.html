@@ -35,13 +35,28 @@
           <h2>Inputs</h2>
           <!-- Input fields and calculate button -->
           <div class="slider-container">
-            <label for="sea-level-pressure">Pressure at Sea Level (hPa):</label>
+            <label for="sea-level-pressure-number">Pressure at Sea Level (hPa):</label>
             <div id="sea-level-pressure-slider"></div>
             <input type="number" id="sea-level-pressure-number" min="800" max="1100" step="any" value="1013.25" required>
           </div>
+
+          <div class="slider-container unit-container">
+            <label for="pressure-unit-select">Display Pressure Unit:</label>
+            <select id="pressure-unit-select">
+              <option value="hPa" selected>hPa - Hectopascals</option>
+              <option value="mbar">mbar - Millibars</option>
+              <option value="inHg">inHg - Inches of mercury</option>
+              <option value="kPa">kPa - Kilopascals</option>
+              <option value="mmHg">mmHg - Millimetres of mercury</option>
+              <option value="psi">psi - Pounds per square inch</option>
+              <option value="atm">atm - Atmospheres</option>
+              <option value="Pa">Pa - Pascals</option>
+              <option value="bar">bar - Bar</option>
+            </select>
+          </div>
           
           <div class="slider-container hide-element">
-            <label for="standard-temperature">Standard Temperature (°C):</label>
+            <label for="standard-temperature-number">Standard Temperature (°C):</label>
             <div id="standard-temperature-slider"></div>
             <input type="number" id="standard-temperature-number" min="-50" max="50" step="any" value="15" required>
           </div>
@@ -57,6 +72,7 @@
           <h2>Output</h2>
              <!-- Output label for calculated pressure -->
             <p>Calculated Pressure: <span id="calculated-pressure"></span></p>
+            <p>Percentage of Sea-Level Pressure: <span id="pressure-percentage"></span></p>
         </section>
       </div>
 
@@ -73,10 +89,49 @@
         <canvas id="pressure-chart"></canvas>
       </section>
 
+      <section class="altitude-reference-section" aria-labelledby="altitude-reference-heading">
+        <h2 id="altitude-reference-heading">Altitude Reference Points</h2>
+        <p class="section-introduction">Select an example to move the altitude marker. The subtle guide lines on the chart show where these examples sit without covering the pressure curve.</p>
+        <div class="altitude-reference-list">
+          <button type="button" class="altitude-reference" data-reference-altitude="8.85">
+            <span class="reference-number">1</span>
+            <span><strong>Mount Everest</strong><small>8.85 km · Summit altitude</small></span>
+          </button>
+          <button type="button" class="altitude-reference" data-reference-altitude="11">
+            <span class="reference-number">2</span>
+            <span><strong>Passenger aircraft</strong><small>11 km · Typical cruising altitude</small></span>
+          </button>
+          <button type="button" class="altitude-reference" data-reference-altitude="30">
+            <span class="reference-number">3</span>
+            <span><strong>Weather balloon</strong><small>30 km · High-altitude example</small></span>
+          </button>
+          <button type="button" class="altitude-reference" data-reference-altitude="100">
+            <span class="reference-number">4</span>
+            <span><strong>Kármán line</strong><small>100 km · Common boundary of space</small></span>
+          </button>
+        </div>
+        <div class="comparison-table-container">
+          <table class="comparison-table">
+            <caption>Pressure comparison at familiar altitudes</caption>
+            <thead>
+              <tr>
+                <th scope="col">Location</th>
+                <th scope="col">Altitude</th>
+                <th scope="col">Pressure</th>
+              </tr>
+            </thead>
+            <tbody id="pressure-comparison-body"></tbody>
+          </table>
+        </div>
+      </section>
+
       <button type="button" class="collapsible" id="how-to-use-button">How to Use the Visualizer <span class="icon"></span> </button>
       <div class="content"></div>
 
       <button type="button" class="collapsible" id="detailed-calculation-button">Detailed Calculation Method <span class="icon"></span></button>
+      <div class="content"></div>
+
+      <button type="button" class="collapsible" id="science-button">The Science Behind Atmospheric Pressure <span class="icon"></span></button>
       <div class="content"></div>
 
       <button type="button" class="collapsible" id="contact-us-button">Contact Us <span class="icon"></span></button>
@@ -87,6 +142,7 @@
     $(document).ready(function(){
       $("#how-to-use-button + .content").load("how-to-use.html");
       $("#detailed-calculation-button + .content").load("detailed-calculation.html");
+      $("#science-button + .content").load("science.html");
       $("#contact-us-button + .content").load("contact-us.html");
     });
     </script>

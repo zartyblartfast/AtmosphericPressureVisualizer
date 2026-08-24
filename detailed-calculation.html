@@ -11,10 +11,10 @@
     <li><strong>Import constants for the <a href="https://en.wikipedia.org/wiki/Lapse_rate" target="_blank">temperature lapse rates</a> for the 3 <a href="https://www.britannica.com/science/atmosphere" target="_blank">atmosphere layers</a> included in our calculations (troposphere, stratosphere, and mesosphere).</strong></li>
     <li><strong>Define constants for <a href="https://www.britannica.com/science/gravity-physics" target="_blank">gravitational acceleration (g)</a>, the <a href="https://www.britannica.com/science/molar-gas-constant" target="_blank">molar mass of dry air (m)</a>, and the <a href="https://en.wikipedia.org/wiki/Gas_constant" target="_blank">universal gas constant (R)</a>.</strong></li>
     <li><strong>Determine the <a href="https://en.wikipedia.org/wiki/Lapse_rate" target="_blank">temperature lapse rate</a> based on the altitude.</strong> The lapse rate is the rate at which atmospheric temperature decreases with an increase in altitude. The lapse rate varies in different layers of the atmosphere.</li>
-    <li><strong>Calculate the temperature at the given altitude</strong> by subtracting the product of the lapse rate and the altitude from the <a href="https://en.wikipedia.org/wiki/Standard_temperature_and_pressure" target="_blank">standard temperature</a>.</li>
+    <li><strong>Calculate the temperature at the given altitude</strong> by adding the product of the signed lapse rate and the altitude to the <a href="https://en.wikipedia.org/wiki/Standard_temperature_and_pressure" target="_blank">standard temperature</a>.</li>
     <li><strong>Adjust the temperature from <a href="https://www.britannica.com/science/Celsius-temperature-scale" target="_blank">Celsius</a> to <a href="https://www.britannica.com/science/Kelvin-temperature-scale" target="_blank">Kelvin</a>.</strong></li>
     <li><strong>Calculate the pressure at the given altitude</strong> using the formula for pressure in a gas at a certain height: <code>pressure = seaLevelPressure * exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK))</code>.</li>
-    <li><strong>Return the calculated pressure.</strong></li>
+    <li><strong>Return the calculated pressure.</strong> The calculation is performed in hPa, then converted for display when a different pressure unit is selected.</li>
   </ol>
   
   <h2>Further Reading and References</h2>

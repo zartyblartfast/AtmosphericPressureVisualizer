@@ -1,6 +1,8 @@
-import { seaLevelPressureValue, altitudeValue, standardTemperatureValue, calculatedPressureOutput, seaLevelPressureSlider, altitudeSlider, standardTemperatureSlider } from './htmlElements.js';
+import { seaLevelPressureValue, altitudeValue, standardTemperatureValue, pressureUnitSelect, calculatedPressureOutput, pressurePercentageOutput, seaLevelPressureSlider, altitudeSlider, standardTemperatureSlider } from './htmlElements.js';
 import { calculatePressure } from './pressureCalculation.js';
 import { generatePressureChart } from './chartGeneration.js';
+import { formatPressure } from './pressureUnits.js';
+import { ALTITUDE_REFERENCES } from './altitudeReferences.js';
 
 const scaleSwitch = document.getElementById('scaleSwitch');
 
@@ -51,16 +53,29 @@ function updatePressureOutput() {
 
   // Calculate the pressure using the user's altitude input
   const calculatedPressure = calculatePressure(seaLevelPressure, altitude, standardTemperature);
-  calculatedPressureOutput.textContent = calculatedPressure.toFixed(2);
+  calculatedPressureOutput.textContent = formatPressure(calculatedPressure, pressureUnitSelect.value);
+  pressurePercentageOutput.textContent = `${((calculatedPressure / seaLevelPressure) * 100).toFixed(1)}%`;
+  updateComparisonTable(seaLevelPressure, standardTemperature, pressureUnitSelect.value);
+}
+
+function updateComparisonTable(seaLevelPressure, standardTemperature, pressureUnit) {
+  const comparisonBody = document.getElementById('pressure-comparison-body');
+  const comparisonRows = [
+    { label: 'Sea level', altitude: 0 },
+    ...ALTITUDE_REFERENCES
+  ];
+
+  comparisonBody.innerHTML = comparisonRows.map(function(reference) {
+    const pressure = calculatePressure(seaLevelPressure, reference.altitude, standardTemperature);
+    return `<tr><th scope="row">${reference.label || reference.shortLabel}</th><td>${reference.altitude.toFixed(2)} km</td><td>${formatPressure(pressure, pressureUnit)}</td></tr>`;
+  }).join('');
 }
 
 // Function to update chart
 function updateChart() {
   // Parse input values
   let seaLevelPressure = parseFloat(seaLevelPressureSlider.noUiSlider.get());
-  console.log("updateChart - seaLevelPressure: " + seaLevelPressure);
   let standardTemperature = parseFloat(standardTemperatureValue.value);
-  console.log("updateChart - standardTemperature: " + standardTemperature);
               
   // Basic input validation
   if (isNaN(seaLevelPressure) || isNaN(standardTemperature)) {
@@ -68,7 +83,7 @@ function updateChart() {
   }
 
   // Generate the pressure chart
-  generatePressureChart(seaLevelPressure, standardTemperature, scaleSwitch.checked);
+  generatePressureChart(seaLevelPressure, standardTemperature, scaleSwitch.checked, pressureUnitSelect.value);
 }
 
 // Add event listeners to slider elements
@@ -105,6 +120,20 @@ standardTemperatureValue.addEventListener('input', function() {
   standardTemperatureSlider.noUiSlider.set(this.value);
   updatePressureOutput();
   updateChart();
+});
+
+// Add an event listener to the unit selector
+pressureUnitSelect.addEventListener('change', function() {
+  updatePressureOutput();
+  updateChart();
+});
+
+// Add an event listener to the altitude reference buttons
+document.querySelectorAll('[data-reference-altitude]').forEach(function(referenceButton) {
+  referenceButton.addEventListener('click', function() {
+    altitudeValue.value = this.dataset.referenceAltitude;
+    altitudeValue.dispatchEvent(new Event('input', { bubbles: true }));
+  });
 });
 
 // Add an event listener to the switch

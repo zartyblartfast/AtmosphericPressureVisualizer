@@ -9,6 +9,10 @@ The Atmospheric Pressure Calculator is a web application that allows users to vi
 - Interactive form with input fields for atmospheric variables.
 - Default values provided for easy initialization.
 - Dynamic chart showcasing the relationship between altitude and atmospheric pressure.
+- Selectable pressure display units, including hPa, mbar, inHg, kPa, mmHg, psi, atm, Pa, and bar.
+- Reference points for Mount Everest, passenger aircraft, weather balloons, and the Kármán line.
+- A pressure comparison table for sea level and familiar altitudes.
+- Educational explanation of how gravity, air density, and temperature affect atmospheric pressure.
 - Responsive design for seamless usage across different devices.
 
 ## How to Use
@@ -16,13 +20,16 @@ The Atmospheric Pressure Calculator is a web application that allows users to vi
 1. Access the Atmospheric Pressure Calculator web page.
 2. Input the desired atmospheric variables:
    - **P₀**: Atmospheric pressure at sea level (in hPa).
-   - **L**: Temperature lapse rate (in °C per kilometer).
    - **h**: Altitude above sea level (in kilometers).
-   - **T₀**: Standard temperature at sea level (in Kelvin).
-3. The web application will calculate the atmospheric pressure at the given altitude and update the visual representation.
-4. The calculated pressure value will be displayed next to the altitude marker.
-5. Additionally, a dynamic chart will showcase the relationship between altitude and atmospheric pressure.
-6. Explore different inputs to observe the variations in atmospheric pressure.
+   - **T₀**: Standard temperature at sea level (in °C, defaulted by the app).
+3. Select the pressure unit you want to display. The app calculates internally in hPa and converts the output and chart to the selected unit.
+4. The web application will calculate the atmospheric pressure at the given altitude and update the visual representation.
+5. Use the altitude reference points below the chart to jump to familiar altitudes. The chart uses subtle numbered guide lines to avoid clutter.
+6. The calculated pressure value and its percentage of sea-level pressure will be displayed in the Output section.
+7. Use the comparison table below the reference points to compare calculated pressures at familiar altitudes.
+8. Additionally, a dynamic chart will showcase the relationship between altitude and atmospheric pressure.
+9. Expand **The Science Behind Atmospheric Pressure** for an explanation of gravity, the weight of the air column, and atmospheric layers.
+10. Explore different inputs to observe the variations in atmospheric pressure.
 
 ## Technologies Used
 
@@ -32,11 +39,15 @@ The Atmospheric Pressure Calculator is a web application that allows users to vi
 
 ## Deployment
 
-The Atmospheric Pressure Calculator can be accessed by visiting the following web page:
+The Atmospheric Pressure Visualizer can be accessed at its configured GitHub Pages custom domain:
 
-[Atmospheric Pressure Visualizer](https://your-username.github.io/AtmosphericPressureCalculator)
+[Atmospheric Pressure Visualizer](https://atmosphericpressurevisualizer.com/)
 
-To deploy the application locally, simply clone this repository and open the `index.html` file in your preferred web browser.
+To deploy the application locally, clone this repository, start a local web server from the repository root, and open `http://127.0.0.1:8008/index.html`:
+
+```bash
+python -m http.server 8008
+```
 
 ## Contributing
 

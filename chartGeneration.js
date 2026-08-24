@@ -1,11 +1,16 @@
 let chart; // Add this line at the start of your chartGeneration.js file
 
 import { calculatePressure } from './pressureCalculation.js';
-import { seaLevelPressureSlider, altitudeSlider } from './htmlElements.js';
+import { altitudeSlider } from './htmlElements.js';
 import { TROPOSPHERE_LAPSE_RATE, STRATOSPHERE_LAPSE_RATE, MESOSPHERE_LAPSE_RATE, xMax } from './constants.js';
+import { convertPressureFromHpa, getPressureUnit } from './pressureUnits.js';
+import { ALTITUDE_REFERENCES } from './altitudeReferences.js';
 
-export function generatePressureChart(seaLevelPressure, standardTemperature, isLogarithmic) {
+export function generatePressureChart(seaLevelPressure, standardTemperature, isLogarithmic, pressureUnit = 'hPa') {
   const ctx = document.getElementById('pressure-chart').getContext('2d');
+  const unit = getPressureUnit(pressureUnit);
+  const yAxisMin = isLogarithmic ? convertPressureFromHpa(0.1, pressureUnit) : 0;
+  const yAxisMax = convertPressureFromHpa(1200, pressureUnit);
 
   // Constants for atmospheric layer boundaries
   const TROPOSPHERE = 11; // in km
@@ -17,7 +22,7 @@ export function generatePressureChart(seaLevelPressure, standardTemperature, isL
   let data = {
     labels: [], // This array will be populated with altitude values
     datasets: [{
-      label: 'Air Pressure (hPa)',
+      label: `Air Pressure (${unit.label})`,
       data: [], // This array will be populated with pressure values
       fill: false,
       //borderColor: 'rgb(75, 192, 192)',
@@ -31,11 +36,10 @@ export function generatePressureChart(seaLevelPressure, standardTemperature, isL
   for (let i = 0; i <= 100; i += 1) { // Fixed range to 100 Km
     data.labels.push(i.toFixed(1));
     let pressureAtAltitude = calculatePressure(seaLevelPressure, i, standardTemperature);
+    let displayPressureAtAltitude = convertPressureFromHpa(pressureAtAltitude, pressureUnit);
 
-    data.datasets[0].data.push(pressureAtAltitude);
+    data.datasets[0].data.push(displayPressureAtAltitude);
 
-    // Log the altitude and corresponding pressure
-    console.log(`Altitude: ${i.toFixed(1)}, Pressure: ${pressureAtAltitude}`);
   }
 
   // If chart exists, destroy it before creating a new one
@@ -43,9 +47,6 @@ export function generatePressureChart(seaLevelPressure, standardTemperature, isL
     chart.destroy();
   }
 
-  console.log(data)
-
-  
 // Chart.js plugin for drawing rectangles
 const drawRectanglesPlugin = {
   id: 'drawRectangles',
@@ -65,10 +66,8 @@ const drawRectanglesPlugin = {
     function drawRectangle(start, end, color, text) {
       const xStart = x.getPixelForValue(start);
       const xEnd = x.getPixelForValue(end);
-      //const yTop = y.getPixelForValue(y.max);
-      //const yBottom = y.getPixelForValue(y.min);
-      const yTop = y.getPixelForValue(1200);  // your y-axis max value
-      const yBottom = y.getPixelForValue(0);  // your y-axis min value
+      const yTop = y.getPixelForValue(y.max);
+      const yBottom = y.getPixelForValue(y.min);
 
     
       ctx.fillStyle = color;
@@ -105,10 +104,8 @@ const drawRectanglesPlugin = {
       // Function to draw a boundary line
       function drawBoundaryLine(start, lapseRate) {
         const xStart = x.getPixelForValue(start);
-        //const yTop = y.getPixelForValue(y.max);
-        //const yBottom = y.getPixelForValue(y.min);
-        const yTop = y.getPixelForValue(1200);  // your y-axis max value
-        const yBottom = y.getPixelForValue(0);  // your y-axis min value
+        const yTop = y.getPixelForValue(y.max);
+        const yBottom = y.getPixelForValue(y.min);
 
       
         if(start !== 0) {
@@ -176,6 +173,43 @@ const drawRectanglesPlugin = {
   }
 };
 
+const referenceMarkersPlugin = {
+  id: 'referenceMarkers',
+  beforeDraw(chart) {
+    const { ctx, chartArea, scales } = chart;
+    const { x } = scales;
+
+    ctx.save();
+    ALTITUDE_REFERENCES.forEach(function(reference, index) {
+      const xPosition = x.getPixelForValue(reference.altitude);
+      if (xPosition < chartArea.left || xPosition > chartArea.right) {
+        return;
+      }
+
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.25)';
+      ctx.setLineDash([3, 5]);
+      ctx.beginPath();
+      ctx.moveTo(xPosition, chartArea.top);
+      ctx.lineTo(xPosition, chartArea.bottom);
+      ctx.stroke();
+
+      // Use only a small numbered marker on the plot; full labels are below it.
+      ctx.setLineDash([]);
+      const markerY = chartArea.top + 10 + ((index % 2) * 16);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.beginPath();
+      ctx.arc(xPosition, markerY, 8, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.fillStyle = 'white';
+      ctx.font = '10px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(String(index + 1), xPosition, markerY);
+    });
+    ctx.restore();
+  }
+};
+
 chart = new Chart(ctx, {
   type: 'line',
   data: data,
@@ -197,17 +231,25 @@ chart = new Chart(ctx, {
       },
       y: {
         type: isLogarithmic ? 'logarithmic' : 'linear',
-        min: isLogarithmic ? 0.1 : 0,  // Set the minimum y-axis value based on the scale
+        min: yAxisMin,  // Set the minimum y-axis value based on the scale
         // min: 0,  // minimum y-axis value
-        max: 1200,  // maximum y-axis value
+        max: yAxisMax,  // maximum y-axis value
         title: {
           display: true,
-          text: 'Air Pressure (hPa)'
+          text: `Air Pressure (${unit.label})`
         },
         beginAtZero: isLogarithmic ? false : true  // Set beginAtZero based on the scale
       }
     },
     plugins: {
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const pressure = Number(context.parsed.y).toFixed(unit.decimals);
+            return `Air Pressure: ${pressure} ${unit.label}`;
+          }
+        }
+      },
       legend: {
         labels: {
           usePointStyle: true,
@@ -216,6 +258,6 @@ chart = new Chart(ctx, {
       }
     }
   },
-  plugins: [drawRectanglesPlugin, drawBoundariesPlugin, markerPlugin]
+  plugins: [drawRectanglesPlugin, drawBoundariesPlugin, markerPlugin, referenceMarkersPlugin]
 });
 }

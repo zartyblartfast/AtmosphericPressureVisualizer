@@ -22,7 +22,7 @@ export function calculatePressure(seaLevelPressure, altitude, standardTemperatur
   }
 
   // Calculate the temperature at the given altitude
-  let temperatureAtAltitude = standardTemperature - (temperatureLapseRate * altitude);
+  let temperatureAtAltitude = standardTemperature + (temperatureLapseRate * altitude);
 
   // Ensure temperature doesn't go below absolute zero
   if (temperatureAtAltitude < -273.15) {
