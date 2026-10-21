@@ -2,7 +2,7 @@ let chart; // Add this line at the start of your chartGeneration.js file
 
 import { calculatePressure } from './pressureCalculation.js';
 import { altitudeSlider } from './htmlElements.js';
-import { TROPOSPHERE_LAPSE_RATE, STRATOSPHERE_LAPSE_RATE, MESOSPHERE_LAPSE_RATE, xMax } from './constants.js';
+import { LOWER_ATMOSPHERE_LAYERS, EARTH_RADIUS_KM, LOWER_ATMOSPHERE_TOP_KM, xMax } from './constants.js';
 import { convertPressureFromHpa, getPressureUnit } from './pressureUnits.js';
 import { ALTITUDE_REFERENCES } from './altitudeReferences.js';
 
@@ -98,11 +98,11 @@ const drawRectanglesPlugin = {
   const drawBoundariesPlugin = {
     id: 'drawBoundaries',
     beforeDraw(chart, args, options) {
-      const {ctx, scales} = chart;
+      const {ctx, scales, chartArea} = chart;
       const {x, y} = scales;
   
       // Function to draw a boundary line
-      function drawBoundaryLine(start, lapseRate) {
+      function drawBoundaryLine(start, text, labelOffset = 0) {
         const xStart = x.getPixelForValue(start);
         const yTop = y.getPixelForValue(y.max);
         const yBottom = y.getPixelForValue(y.min);
@@ -124,10 +124,21 @@ const drawRectanglesPlugin = {
         ctx.save();
         ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Darker grey color
         ctx.font = '8px Arial'; // Smaller font size
-        const text = 'T-Lapse-Rate: ' + lapseRate + ' C';
-        const textWidth = ctx.measureText(text).width;
+        // Rotated text must fit the plot, not extend into the legend on mobile.
+        const labelPadding = 4;
+        const availableHeight = chartArea.bottom - chartArea.top - 2 * labelPadding;
+        if (availableHeight <= 0) {
+          ctx.restore();
+          return;
+        }
+        let textWidth = ctx.measureText(text).width;
+        if (textWidth > availableHeight) {
+          ctx.font = `${8 * availableHeight / textWidth}px Arial`;
+          textWidth = ctx.measureText(text).width;
+        }
         const textX = xStart + 10; // Shift the text rightwards
-        const textY = yBottom - 50; // Shift the text closer to the x-axis
+        const textY = Math.max(chartArea.top + labelPadding + textWidth / 2,
+          Math.min(yBottom - 80 - labelOffset, chartArea.bottom - labelPadding - textWidth / 2));
         ctx.translate(textX, textY);
         ctx.rotate(-Math.PI / 2); // Rotate the canvas
         ctx.fillText(text, -textWidth / 2, 0);
@@ -135,13 +146,13 @@ const drawRectanglesPlugin = {
       }
 
   
-      // Draw boundary lines
-      drawBoundaryLine(0, TROPOSPHERE_LAPSE_RATE);
-      drawBoundaryLine(11, 0);
-      drawBoundaryLine(20, STRATOSPHERE_LAPSE_RATE);
-      drawBoundaryLine(32, 0);
-      drawBoundaryLine(47, MESOSPHERE_LAPSE_RATE);
-      drawBoundaryLine(85, 0);
+      // Rates are per geopotential km (H); place bases on the geometric z axis.
+      // The broad coloured atmosphere bands remain schematic, not model layers.
+      LOWER_ATMOSPHERE_LAYERS.forEach(function(layer, index) {
+        const z = EARTH_RADIUS_KM * layer.baseHeightKm / (EARTH_RADIUS_KM - layer.baseHeightKm);
+        drawBoundaryLine(z, `Lapse: ${layer.lapseRate} °C/km (H)`, (index % 2) * 25);
+      });
+      drawBoundaryLine(LOWER_ATMOSPHERE_TOP_KM, '86 km: upper reference');
     }
   };
 

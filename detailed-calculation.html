@@ -1,27 +1,28 @@
-<!-- Needs all hyperlinks checking -->
 <div style="margin-left: 20px; margin-right: 20px;">
   <h2>Understanding the Calculation Method</h2>
-  <p>Our Atmospheric Pressure Calculator uses a well-established scientific method to estimate air pressure at different altitudes. This method combines the <a href="https://en.wikipedia.org/wiki/Barometric_formula" target="_blank">barometric formula</a> and the <a href="https://en.wikipedia.org/wiki/International_Standard_Atmosphere" target="_blank">International Standard Atmosphere (ISA) model</a>. These models take into account various factors such as altitude, temperature, and the physical properties of air to provide an accurate estimation of atmospheric pressure.</p>
+  <p>The visualizer estimates pressure from 0 to 100 km using a layered reference atmosphere. Altitude entered in the app is <strong>geometric height</strong> above sea level, z, in kilometres. Pressure is calculated in hPa and converted only for display. Defaults are P&#8320; = 1013.25 hPa and T&#8320; = 15 °C.</p>
 
-  <h2>Our Verification Process</h2>
-  <p>We've taken steps to ensure the accuracy of our calculations. The calculation method has been thoroughly reviewed and cross-referenced with established scientific models and formulas. We've tested the calculator with a variety of inputs to ensure it works correctly and provides reliable results.</p>
-
-  <h2>The Calculation Process in Detail</h2>
+  <h2>Layer-by-Layer Calculation</h2>
   <ol>
-    <li><strong>Import constants for the <a href="https://en.wikipedia.org/wiki/Lapse_rate" target="_blank">temperature lapse rates</a> for the 3 <a href="https://www.britannica.com/science/atmosphere" target="_blank">atmosphere layers</a> included in our calculations (troposphere, stratosphere, and mesosphere).</strong></li>
-    <li><strong>Define constants for <a href="https://www.britannica.com/science/gravity-physics" target="_blank">gravitational acceleration (g)</a>, the <a href="https://www.britannica.com/science/molar-gas-constant" target="_blank">molar mass of dry air (m)</a>, and the <a href="https://en.wikipedia.org/wiki/Gas_constant" target="_blank">universal gas constant (R)</a>.</strong></li>
-    <li><strong>Determine the <a href="https://en.wikipedia.org/wiki/Lapse_rate" target="_blank">temperature lapse rate</a> based on the altitude.</strong> The lapse rate is the rate at which atmospheric temperature decreases with an increase in altitude. The lapse rate varies in different layers of the atmosphere.</li>
-    <li><strong>Calculate the temperature at the given altitude</strong> by adding the product of the signed lapse rate and the altitude to the <a href="https://en.wikipedia.org/wiki/Standard_temperature_and_pressure" target="_blank">standard temperature</a>.</li>
-    <li><strong>Adjust the temperature from <a href="https://www.britannica.com/science/Celsius-temperature-scale" target="_blank">Celsius</a> to <a href="https://www.britannica.com/science/Kelvin-temperature-scale" target="_blank">Kelvin</a>.</strong></li>
-    <li><strong>Calculate the pressure at the given altitude</strong> using the formula for pressure in a gas at a certain height: <code>pressure = seaLevelPressure * exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK))</code>.</li>
-    <li><strong>Return the calculated pressure.</strong> The calculation is performed in hPa, then converted for display when a different pressure unit is selected.</li>
+    <li><strong>Convert geometric to geopotential height below 86 km:</strong> <code>H = R z / (R + z)</code>, with <code>R = 6356.766 km</code>. This accounts for decreasing gravity in the lower-atmosphere hydrostatic equations; H and z are not interchangeable.</li>
+    <li><strong>Start at sea level:</strong> <code>T = T&#8320; + 273.15</code> kelvin and <code>P = P&#8320;</code>. Traverse every intervening layer, carrying its top pressure and temperature into the next layer. The geopotential boundaries are <code>0, 11, 20, 32, 47, 51, 71, 84.852 km</code>, with signed temperature gradients <code>−6.5, 0, +1, +2.8, 0, −2.8, −2 K/km</code>, respectively. Temperature differences in K/km and °C/km have the same numerical value.</li>
+    <li><strong>Integrate each layer:</strong> for base values P<sub>b</sub>, T<sub>b</sub>, gradient L and traversed geopotential height ΔH, <code>T = T_b + L ΔH</code>. If <code>L ≠ 0</code>, use <code>P = P_b (T / T_b)^(−C/L)</code>. For an isothermal layer, <code>P = P_b exp(−C ΔH / T_b)</code>. Here <code>C = 34.1632 K/km</code>. Using a single final temperature in a sea-level exponential is not equivalent to this integration.</li>
+    <li><strong>Join at exactly 86 geometric km:</strong> the rounded reference top H = 84.852 km corresponds almost, but not exactly, to z = 86 km. The last lower-layer gradient is continued to the exact join, <code>H(86) ≈ 84.8520458 km</code>.</li>
+    <li><strong>From 86 to 100 geometric km:</strong> use the reference log-pressure polynomial <code>F(z) = 95.571899 − 4.011801 z + 0.06424731 z² − 0.0004789660 z³ + 0.000001340543 z⁴</code>, normalized as <code>P(z) = P(86) exp(F(z) − F(86))</code>. This preserves the reference pressure-ratio shape while making pressure continuous at 86 km. It does not impose a zero temperature gradient above the join.</li>
   </ol>
-  
-  <h2>Further Reading and References</h2>
-  <p>If you're interested in learning more about the science behind our calculator, we recommend the following resources:</p>
+
+  <h2>What the Temperature Control Assumes</h2>
+  <p>Changing sea-level temperature offsets the <em>whole lower temperature profile</em>, keeping its gradients fixed, and reintegrates pressure through it. This is an <strong>educational pressure-response assumption</strong>, not a standard aviation ISA delta-T implementation: aviation-style temperature deviations commonly leave reference pressure fixed and change density instead. It is not a measured weather forecast. Above 86 km, the temperature offset changes only the boundary pressure P(86); the reference pressure ratio P(z)/P(86) is unchanged. No custom upper-atmosphere temperature model is calculated.</p>
+
+  <h2>Verification and Limitations</h2>
+  <p>The dependency-free Node tests compare default results against independent reference anchors: about 226.3226 hPa at 11 geopotential km and 54.7498 hPa at 20 geopotential km; 264.99893 hPa at 10 geometric km, 11.97031 hPa at 30 geometric km, and 0.004456799 hPa at 85 geometric km. Upper-atmosphere checks include about 0.0018359 hPa at 90 km and 0.000320124 hPa at 100 km. Lower checks allow rounding tolerances; upper checks allow 0.1% because the fitted reference shape, anchored to the integrated 86 km pressure, can differ slightly from published absolute values.</p>
+  <p>Tests also check exact sea-level pressure, linear sea-level-pressure scaling, continuity and decreasing pressure across layer boundaries and the 86 km join, positive pressures across 0–100 km at the UI temperature and pressure extremes, invalid inputs, and nonstandard-temperature behaviour. These are numerical model checks, not validation against local observations. The model does not account for humidity, changing weather, latitude, or variable upper-atmosphere composition and solar activity. The broad coloured atmosphere bands on the chart are schematic; dashed model-layer annotations use geometric positions and gradients per geopotential km.</p>
+  <p>The calculation accepts finite positive sea-level pressure, finite sea-level temperature, and geometric altitude from 0 through 100 km. Absolute temperature must remain positive throughout all traversed lower layers. Invalid inputs return <code>NaN</code>, without clamping to absolute zero or extrapolating outside the altitude range.</p>
+
+  <h2>References</h2>
   <ul>
-    <li><a href="https://www.iso.org/standard/7472.html" target="_blank">International Standard Atmosphere (ISO 2533:1975)</a>: This is the official standard that defines the ISA model.</li>
-    <li><a href="https://ntrs.nasa.gov/api/citations/19770009539/downloads/19770009539.pdf" target="_blank">U.S. Standard Atmosphere (1976)</a>: This document from NASA provides a detailed description of the U.S. version of the standard atmosphere model.</li>
-    <li><a href="https://en.wikipedia.org/wiki/Barometric_formula" target="_blank">Barometric formula on Wikipedia</a>: This resource provides a good starting point for understanding the mathematical basis of our calculation method.</li>
+    <li><a href="https://ntrs.nasa.gov/citations/19770009539" target="_blank" rel="noopener">U.S. Standard Atmosphere, 1976 (NASA NTRS)</a>: original reference atmosphere and tables.</li>
+    <li><a href="https://www.itu.int/dms_pubrec/itu-r/rec/p/R-REC-P.835-6-201712-S!!PDF-E.pdf" target="_blank" rel="noopener">ITU-R P.835-6 (2017), Annex 1, equations (1)–(5)</a>: height conversion, lower profiles and upper pressure fit used here. This edition is superseded; it is cited as the source of these equations, not as the latest recommendation.</li>
+    <li><a href="https://www.pdas.com/atmosnonstd.html" target="_blank" rel="noopener">PDAS: Non-standard Atmospheres</a>: context on aviation temperature deviations, distinct from this visualizer's pressure-response assumption.</li>
   </ul>
 </div>
