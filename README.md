@@ -31,6 +31,24 @@ The Atmospheric Pressure Calculator is a web application that allows users to vi
 9. Expand **The Science Behind Atmospheric Pressure** for an explanation of gravity, the weight of the air column, and atmospheric layers.
 10. Explore different inputs to observe the variations in atmospheric pressure.
 
+## Atmospheric Model and Tests
+
+`calculatePressure(P0, altitudeKm, seaLevelCelsius)` returns hPa. Entered altitude is **geometric**, from 0 to 100 km inclusive. Up to exactly 86 geometric km it is converted to geopotential height with `H = 6356.766 z / (6356.766 + z)`. The shared data in `constants.js` specifies geopotential boundaries of 0, 11, 20, 32, 47, 51, 71, and 84.852 km and signed gradients of −6.5, 0, +1, +2.8, 0, −2.8, and −2 K/km. Each layer carries its pressure and temperature into the next; hydrostatic integration uses the lapse-layer power law or isothermal exponential with `C = 34.1632 K/km`. The last gradient extends slightly beyond the rounded top to `H(86)`.
+
+From 86–100 geometric km, pressure is `P(86) * exp(F(z) - F(86))`, where `F(z) = 95.571899 - 4.011801*z + 0.06424731*z² - 0.0004789660*z³ + 0.000001340543*z⁴`. Anchoring the reference log-pressure fit at 86 km ensures continuity but can cause small differences from published absolute upper-atmosphere values. Defaults are 1013.25 hPa and 15 °C. Finite positive P0 and finite temperature are required; absolute temperature must stay positive in all traversed lower layers. Invalid inputs return `NaN` without exceptions.
+
+The temperature control offsets the **whole lower temperature profile** and reintegrates pressure, keeping gradients fixed. This is an **educational pressure-response assumption**, not a standard aviation ISA delta-T implementation (which commonly holds pressure fixed while changing density), nor a measured weather forecast. Above 86 km, a temperature offset changes only P(86); the reference upper pressure ratio stays unchanged. No custom upper-temperature model is computed. Humidity, local weather, latitude, and variable upper-atmosphere composition/solar activity are not modelled. Broad coloured chart bands are schematic; lapse annotations show actual shared layer bases in geometric coordinates and rates in °C per geopotential km.
+
+Sources: [U.S. Standard Atmosphere, 1976 (NASA NTRS)](https://ntrs.nasa.gov/citations/19770009539), [ITU-R P.835-6 (2017), Annex 1, equations (1)–(5)](https://www.itu.int/dms_pubrec/itu-r/rec/p/R-REC-P.835-6-201712-S!!PDF-E.pdf), and [PDAS on non-standard atmospheres](https://www.pdas.com/atmosnonstd.html). P.835-6 is superseded and is cited as the equations source, not the latest edition.
+
+Run the model tests without added dependencies or a build step:
+
+```bash
+node tests/pressureCalculation.test.mjs
+```
+
+The tests use independent reference anchors at lower geopotential and geometric heights and at 90/100 geometric km (upper checks allow 0.1% for fit/normalization differences). They also cover exact sea level, geometric conversion, linear P0 scaling, continuity and monotonicity at true layer boundaries and former breakpoints, positivity over 0–100 km at UI extremes (−50 to +50 °C, 800 to 1100 hPa), invalid inputs, and lower/upper nonstandard-temperature behaviour. These verify numerical behaviour of this model, not forecast accuracy.
+
 ## Technologies Used
 
 - HTML
